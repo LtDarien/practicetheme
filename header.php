@@ -16,8 +16,15 @@
 </head>
 <body <?php body_class( );?>>
 	<header class="site-header">
-		<h1> <a href="<?php echo home_url( );?>">
-			Wordpress Practice Theme </a></h1>
+		<h1> <a href="<?php echo home_url('/');?>"><img src="<?php bloginfo('template_directory' );?>/images/logo.png"
+			alt="Wordpress Practice Theme"> </a></h1>
 	</header>
+
+	<nav class="main-navigation">
+		<?php wp_nav_menu(array('theme_location' => 'primary', 'container' =>false) ); ?>
+	</nav>
+		
+
+	</nav>
 
 	
