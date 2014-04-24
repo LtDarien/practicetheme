@@ -42,3 +42,52 @@ function practicetheme_scripts_and_styles() {
 }
 
 add_action( 'wp_enqueue_scripts', 'practicetheme_scripts_and_styles');
+
+function practicetheme_post_types() {
+	$types = array(
+		'pt_staff' => array(
+			'menu_title' => 'Staff',
+			'plural' => 'People',
+			'singular' => 'Person',
+			'supports' => array('title','editor','excerpt','thumbnail','author','page-attributes'),
+			'slug' => 'staff'
+			), 
+		'pt_menu' => array(
+			'menu_title' => 'Menu',
+			'plural' => 'Items',
+			'singular' => 'Item',
+			'supports' => array('title','editor','excerpt','thumbnail','author','page-attributes'),
+			'slug' => 'menu'
+			)
+		);
+	$counter = 0;
+	foreach($types as $type => $arg) {
+		$labels = array(
+			'name' => $arg['menu_title'],
+			'singular_name' => $arg['singular'],
+			'add_new' => 'Add new',
+			'add__new_item' => 'Add new '.strtolower($arg['singular']),
+			'edit_item' => 'Edit '.strtolower($arg['singular']),
+			'new_item' => 'New '.strtolower($arg['singular']),
+			'all_items' => 'All '.strtolower($arg['plural']),
+			'view_items' => 'View '.strtolower($arg['plural']),
+			'search_itmes' => 'Search '.strtolower($arg['plural']),
+			'not_found' => 'No '.strtolower($arg['plural']).' found',
+			'not_found_in_trash' => 'No'.strtolower($arg['plural']).' found in Trash',
+			'parent_item_colon' => '',
+			'menu_name' => $arg['menu_title']
+			 );
+
+	register_post_type($type, array(
+		'labels' => $labels,
+		'public' => true,
+		'has_archive' => true,
+		'capability_type' => 'post',
+		'supports' => $arg['supports'],
+		'rewrite' => array('slug' => $arg['slug']),
+		'menu_positon' => (20 + Counter),
+		));
+	$counter++;
+	}
+}
+add_action('init', 'practicetheme_post_types');
